@@ -1,0 +1,98 @@
+﻿@model IEnumerable<MVC.Models.mvcZamowienie>
+
+@{
+    ViewBag.Title = "DetailsList";
+
+}
+
+<h4>Utwórz fakturę dla Klienta</h4>
+@*@ViewBag.faktura*@
+
+<div class="card">
+
+    @{
+        Html.RenderAction("Details", "Faktury", new { id = ViewBag.faktura });
+    }
+    <div class="card-body">
+
+        <table class="table">
+            @{ int lp = 0; }
+            <tr>
+
+                <th>
+                   Lp.
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Towar.nazwa)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Cena)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ilosc)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.rabat)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PoRabacie)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Razem)
+                </th>
+
+                <th></th>
+            </tr>
+            @{
+                decimal suma = 0;
+            }
+            @foreach (var item in Model)
+            {
+                <tr>
+
+                    <td>
+                        @(lp += 1)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Towar.nazwa)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Cena)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ilosc)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.rabat)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PoRabacie)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Razem)
+                    </td>
+
+
+                    @{
+                        suma = (decimal)suma + (decimal)item.Razem;
+                    }
+                </tr>
+            }
+            <tr>
+                <td colspan="7">
+
+                    <h6><b>Wartość całej faktury: @suma.ToString("0.00")</b></h6>
+                </td>
+
+            </tr>
+            
+        </table>
+
+        
+        <p>
+            @Html.ActionLink("Dodaj towar", "Create", new { id = ViewBag.faktura }, htmlAttributes: new { @class = "btn my-btn btn-primary px-5 my-4" })
+            @Html.ActionLink("Zapisz fakturę", "Index22", "Faktury",null, htmlAttributes: new { @class = "btn my-btn btn-success px-5 my-4 mx-4" })
+
+        </p>
+    </div>
+</div>

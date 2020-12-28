@@ -1,0 +1,313 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="SMAPIModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Faktura">
+          <Key>
+            <PropertyRef Name="FakturaID" />
+          </Key>
+          <Property Name="FakturaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NrFaktury" Type="nvarchar" MaxLength="50" />
+          <Property Name="KlientID" Type="int" />
+          <Property Name="wartosc" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="Data" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Klient">
+          <Key>
+            <PropertyRef Name="KlientID" />
+          </Key>
+          <Property Name="KlientID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nazwaKlienta" Type="nvarchar" MaxLength="50" />
+          <Property Name="numerKlienta" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Towar">
+          <Key>
+            <PropertyRef Name="TowarID" />
+          </Key>
+          <Property Name="TowarID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nazwa" Type="nvarchar" MaxLength="50" />
+          <Property Name="cena" Type="decimal" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="Zamowienie">
+          <Key>
+            <PropertyRef Name="ZamowienieID" />
+          </Key>
+          <Property Name="ZamowienieID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TowarID" Type="int" />
+          <Property Name="Cena" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="ilosc" Type="int" />
+          <Property Name="rabat" Type="int" />
+          <Property Name="PoRabacie" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="Razem" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="FakturaID" Type="int" />
+          <Property Name="KlientID" Type="int" />
+        </EntityType>
+        <Association Name="FK__Faktura__KlientI__31EC6D26">
+          <End Role="Klient" Type="Self.Klient" Multiplicity="0..1" />
+          <End Role="Faktura" Type="Self.Faktura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Klient">
+              <PropertyRef Name="KlientID" />
+            </Principal>
+            <Dependent Role="Faktura">
+              <PropertyRef Name="KlientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Zamowieni__Faktu__33D4B598">
+          <End Role="Faktura" Type="Self.Faktura" Multiplicity="0..1" />
+          <End Role="Zamowienie" Type="Self.Zamowienie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Faktura">
+              <PropertyRef Name="FakturaID" />
+            </Principal>
+            <Dependent Role="Zamowienie">
+              <PropertyRef Name="FakturaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Zamowieni__Klien__34C8D9D1">
+          <End Role="Klient" Type="Self.Klient" Multiplicity="0..1" />
+          <End Role="Zamowienie" Type="Self.Zamowienie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Klient">
+              <PropertyRef Name="KlientID" />
+            </Principal>
+            <Dependent Role="Zamowienie">
+              <PropertyRef Name="KlientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Zamowieni__Towar__2F10007B">
+          <End Role="Towar" Type="Self.Towar" Multiplicity="0..1" />
+          <End Role="Zamowienie" Type="Self.Zamowienie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Towar">
+              <PropertyRef Name="TowarID" />
+            </Principal>
+            <Dependent Role="Zamowienie">
+              <PropertyRef Name="TowarID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SMAPIModelStoreContainer">
+          <EntitySet Name="Faktura" EntityType="Self.Faktura" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Klient" EntityType="Self.Klient" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Towar" EntityType="Self.Towar" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Zamowienie" EntityType="Self.Zamowienie" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Faktura__KlientI__31EC6D26" Association="Self.FK__Faktura__KlientI__31EC6D26">
+            <End Role="Klient" EntitySet="Klient" />
+            <End Role="Faktura" EntitySet="Faktura" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Zamowieni__Faktu__33D4B598" Association="Self.FK__Zamowieni__Faktu__33D4B598">
+            <End Role="Faktura" EntitySet="Faktura" />
+            <End Role="Zamowienie" EntitySet="Zamowienie" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Zamowieni__Klien__34C8D9D1" Association="Self.FK__Zamowieni__Klien__34C8D9D1">
+            <End Role="Klient" EntitySet="Klient" />
+            <End Role="Zamowienie" EntitySet="Zamowienie" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Zamowieni__Towar__2F10007B" Association="Self.FK__Zamowieni__Towar__2F10007B">
+            <End Role="Towar" EntitySet="Towar" />
+            <End Role="Zamowienie" EntitySet="Zamowienie" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SMAPIModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Faktura">
+          <Key>
+            <PropertyRef Name="FakturaID" />
+          </Key>
+          <Property Name="FakturaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NrFaktury" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="KlientID" Type="Int32" />
+          <Property Name="wartosc" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Data" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Klient" Relationship="Self.FK__Faktura__KlientI__31EC6D26" FromRole="Faktura" ToRole="Klient" />
+          <NavigationProperty Name="Zamowienie" Relationship="Self.FK__Zamowieni__Faktu__33D4B598" FromRole="Faktura" ToRole="Zamowienie" />
+        </EntityType>
+        <EntityType Name="Klient">
+          <Key>
+            <PropertyRef Name="KlientID" />
+          </Key>
+          <Property Name="KlientID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nazwaKlienta" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="numerKlienta" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Faktura" Relationship="Self.FK__Faktura__KlientI__31EC6D26" FromRole="Klient" ToRole="Faktura" />
+          <NavigationProperty Name="Zamowienie" Relationship="SMAPIModel.FK__Zamowieni__Klien__34C8D9D1" FromRole="Klient" ToRole="Zamowienie" />
+        </EntityType>
+        <EntityType Name="Towar">
+          <Key>
+            <PropertyRef Name="TowarID" />
+          </Key>
+          <Property Name="TowarID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nazwa" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="cena" Type="Decimal" Precision="18" Scale="0" />
+          <NavigationProperty Name="Zamowienie" Relationship="Self.FK__Zamowieni__Towar__2F10007B" FromRole="Towar" ToRole="Zamowienie" />
+        </EntityType>
+        <EntityType Name="Zamowienie">
+          <Key>
+            <PropertyRef Name="ZamowienieID" />
+          </Key>
+          <Property Name="ZamowienieID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TowarID" Type="Int32" />
+          <Property Name="Cena" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="ilosc" Type="Int32" />
+          <Property Name="rabat" Type="Int32" />
+          <Property Name="PoRabacie" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Razem" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="FakturaID" Type="Int32" />
+          <NavigationProperty Name="Faktura" Relationship="Self.FK__Zamowieni__Faktu__33D4B598" FromRole="Zamowienie" ToRole="Faktura" />
+          <NavigationProperty Name="Towar" Relationship="Self.FK__Zamowieni__Towar__2F10007B" FromRole="Zamowienie" ToRole="Towar" />
+          <Property Name="KlientID" Type="Int32" />
+          <NavigationProperty Name="Klient" Relationship="SMAPIModel.FK__Zamowieni__Klien__34C8D9D1" FromRole="Zamowienie" ToRole="Klient" />
+        </EntityType>
+        <Association Name="FK__Faktura__KlientI__31EC6D26">
+          <End Role="Klient" Type="Self.Klient" Multiplicity="0..1" />
+          <End Role="Faktura" Type="Self.Faktura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Klient">
+              <PropertyRef Name="KlientID" />
+            </Principal>
+            <Dependent Role="Faktura">
+              <PropertyRef Name="KlientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Zamowieni__Faktu__33D4B598">
+          <End Role="Faktura" Type="Self.Faktura" Multiplicity="0..1" />
+          <End Role="Zamowienie" Type="Self.Zamowienie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Faktura">
+              <PropertyRef Name="FakturaID" />
+            </Principal>
+            <Dependent Role="Zamowienie">
+              <PropertyRef Name="FakturaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Zamowieni__Towar__2F10007B">
+          <End Role="Towar" Type="Self.Towar" Multiplicity="0..1" />
+          <End Role="Zamowienie" Type="Self.Zamowienie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Towar">
+              <PropertyRef Name="TowarID" />
+            </Principal>
+            <Dependent Role="Zamowienie">
+              <PropertyRef Name="TowarID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SMAPIEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Faktura" EntityType="Self.Faktura" />
+          <EntitySet Name="Klient" EntityType="Self.Klient" />
+          <EntitySet Name="Towar" EntityType="Self.Towar" />
+          <EntitySet Name="Zamowienie" EntityType="Self.Zamowienie" />
+          <AssociationSet Name="FK__Faktura__KlientI__31EC6D26" Association="Self.FK__Faktura__KlientI__31EC6D26">
+            <End Role="Klient" EntitySet="Klient" />
+            <End Role="Faktura" EntitySet="Faktura" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Zamowieni__Faktu__33D4B598" Association="Self.FK__Zamowieni__Faktu__33D4B598">
+            <End Role="Faktura" EntitySet="Faktura" />
+            <End Role="Zamowienie" EntitySet="Zamowienie" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Zamowieni__Towar__2F10007B" Association="Self.FK__Zamowieni__Towar__2F10007B">
+            <End Role="Towar" EntitySet="Towar" />
+            <End Role="Zamowienie" EntitySet="Zamowienie" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Zamowieni__Klien__34C8D9D1" Association="SMAPIModel.FK__Zamowieni__Klien__34C8D9D1">
+            <End Role="Klient" EntitySet="Klient" />
+            <End Role="Zamowienie" EntitySet="Zamowienie" />
+          </AssociationSet>
+        </EntityContainer>
+        <Association Name="FK__Zamowieni__Klien__34C8D9D1">
+          <End Type="SMAPIModel.Klient" Role="Klient" Multiplicity="0..1" />
+          <End Type="SMAPIModel.Zamowienie" Role="Zamowienie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Klient">
+              <PropertyRef Name="KlientID" />
+            </Principal>
+            <Dependent Role="Zamowienie">
+              <PropertyRef Name="KlientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SMAPIModelStoreContainer" CdmEntityContainer="SMAPIEntities">
+          <EntitySetMapping Name="Faktura">
+            <EntityTypeMapping TypeName="SMAPIModel.Faktura">
+              <MappingFragment StoreEntitySet="Faktura">
+                <ScalarProperty Name="FakturaID" ColumnName="FakturaID" />
+                <ScalarProperty Name="NrFaktury" ColumnName="NrFaktury" />
+                <ScalarProperty Name="KlientID" ColumnName="KlientID" />
+                <ScalarProperty Name="wartosc" ColumnName="wartosc" />
+                <ScalarProperty Name="Data" ColumnName="Data" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Klient">
+            <EntityTypeMapping TypeName="SMAPIModel.Klient">
+              <MappingFragment StoreEntitySet="Klient">
+                <ScalarProperty Name="KlientID" ColumnName="KlientID" />
+                <ScalarProperty Name="nazwaKlienta" ColumnName="nazwaKlienta" />
+                <ScalarProperty Name="numerKlienta" ColumnName="numerKlienta" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Towar">
+            <EntityTypeMapping TypeName="SMAPIModel.Towar">
+              <MappingFragment StoreEntitySet="Towar">
+                <ScalarProperty Name="TowarID" ColumnName="TowarID" />
+                <ScalarProperty Name="nazwa" ColumnName="nazwa" />
+                <ScalarProperty Name="cena" ColumnName="cena" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Zamowienie">
+            <EntityTypeMapping TypeName="SMAPIModel.Zamowienie">
+              <MappingFragment StoreEntitySet="Zamowienie">
+                <ScalarProperty Name="KlientID" ColumnName="KlientID" />
+                <ScalarProperty Name="ZamowienieID" ColumnName="ZamowienieID" />
+                <ScalarProperty Name="TowarID" ColumnName="TowarID" />
+                <ScalarProperty Name="Cena" ColumnName="Cena" />
+                <ScalarProperty Name="ilosc" ColumnName="ilosc" />
+                <ScalarProperty Name="rabat" ColumnName="rabat" />
+                <ScalarProperty Name="PoRabacie" ColumnName="PoRabacie" />
+                <ScalarProperty Name="Razem" ColumnName="Razem" />
+                <ScalarProperty Name="FakturaID" ColumnName="FakturaID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

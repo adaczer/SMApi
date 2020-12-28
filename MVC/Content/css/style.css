@@ -1,0 +1,113 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    font-family: 'Lato', sans-serif;
+
+   
+}
+
+
+body{
+    font-family: 'Lato', sans-serif;
+
+
+}
+
+.btn-primary{
+    background:linear-gradient(90deg,#1e9cd7,#005b97 );
+    font-weight: bold;
+    border: 0px;
+    outline: 0px;
+    border-radius: 10px !important
+    }
+
+.btn-success
+{
+    border-radius:10px !important
+}
+
+
+.btn-primary:hover {
+    background: linear-gradient(90deg,#1985b8,#084a75 );
+    font-weight: bold;
+    border: 0px;
+    outline: 0px;
+}
+
+
+.btn-info{
+    background:linear-gradient(90deg,#1e9cd7,#005b97 );
+    font-weight: bold;
+    border: 0px;
+    outline: 0px;
+    border-radius: 10px !important;
+    }
+    
+
+.btn-info:hover{
+    background:linear-gradient(90deg,#1985b8,#084a75 );
+    font-weight: bold;
+    border: 0px;
+    outline: 0px;
+}
+
+
+.my-btn{
+    font-size: 22px !important;
+    font-weight: bold !important;
+    border: 0px !important;
+    outline: 0px !important;
+}
+
+.content{
+    background-color: rgb(236, 236, 236);
+    width: 100%;
+    min-height: 527px;
+    border-radius: 10px;
+    padding: 15px;
+}
+
+.top_bar{
+    height: 150px;
+    display: flex;
+    justify-content: center;
+ align-items: center;
+ padding: 15px;
+}
+
+.h1{
+    font-family: 'Lato', sans-serif;
+
+}
+
+.gruby{
+    font-weight: 900;
+	color:black;
+}
+
+.gruby:link{
+text-decoration: none;
+color: black;
+}
+
+.gruby:visited{
+text-decoration: none;
+color:black;
+}
+
+.gruby:hover{
+text-decoration: none;
+color:black;
+}
+
+.gruby:active{
+text-decoration: none;
+color:black;
+}
+
+.img_user{
+    display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 30%;
+}

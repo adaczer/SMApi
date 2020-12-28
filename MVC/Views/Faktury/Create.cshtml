@@ -1,0 +1,84 @@
+﻿@model MVC.Models.mvcFaktura
+
+@{
+    ViewBag.Title = "Utwórz fakturę";
+}
+
+@*<h2>Create</h2>*@
+
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form">
+    <h6>Podaj dane Klienta oraz date dokumentu.</h6>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+
+    <div class="row my-4">
+
+        <div class="form-group col-md-4">
+            @Html.LabelFor(model => model.Klient.nazwaKlienta, htmlAttributes: new { @class = "control-label col-md-12" })
+            <div class="col-md-12">
+                @Html.EditorFor(model => model.Klient.nazwaKlienta, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Klient.nazwaKlienta, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+
+
+
+        <div class="form-group col-md-4">
+            @Html.LabelFor(model => model.Data, htmlAttributes: new { @class = "control-label col-md-12" })
+            <div class="col-md-12">
+                @Html.EditorFor(model => model.Data, new { htmlAttributes = new { @class = "form-control date datetimepicker1", placeholder = "-- Wybierz date --" } })
+                @Html.ValidationMessageFor(model => model.Data, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group col-md-4 d-flex justify-content-center">
+            <div>
+                <input type="submit" value="Dalej" class="btn my-btn btn-primary px-5 my-4" />
+            </div>
+
+        </div>
+
+    </div>
+</div>
+}
+
+<div>
+    @Html.ActionLink("Powrót", "Index22", "Faktury",null, htmlAttributes: new { @class = "btn  btn-secondary mb-3" })
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+
+
+}
+
+
+
+        <script type="text/javascript">
+            $(function () {
+                $('.datetimepicker1').datetimepicker({
+                    format: 'YYYY-MM-DD'
+                });
+            });
+        </script>
+
+
+
+
+
+
+
+
+
+

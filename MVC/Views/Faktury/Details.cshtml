@@ -1,0 +1,24 @@
+﻿@model MVC.Models.mvcFaktura
+
+@{
+    ViewBag.Title = "Details";
+    Layout = null;
+}
+
+
+
+
+
+  
+
+    
+        <div class="card-header">
+            <h3 class="text-center">Faktura Nr @Html.DisplayFor(model => model.NrFaktury)</h3>
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Numer Klienta: @Html.DisplayFor(model => model.Klient.numerKlienta)</h5>
+            <h5 class="card-title">Nazwa Klienta: @Html.DisplayFor(model => model.Klient.nazwaKlienta)</h5>
+            <h5 class="card-title">Data: @Html.ValueFor(model => model.Data, "{0:yyyy-MM-dd}")</h5>
+        </div>
+
+    

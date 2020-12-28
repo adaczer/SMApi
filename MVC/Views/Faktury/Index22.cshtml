@@ -1,0 +1,57 @@
+﻿@model IEnumerable<MVC.Models.mvcFaktura>
+
+@{
+    ViewBag.Title = "Przeglądaj faktury";
+}
+
+
+<p>
+    @Html.ActionLink("Utwórz nową fakturę", "Create", "Faktury",null, htmlAttributes: new { @class = "btn  btn-block my-btn btn-success py-3 mb-3" })
+</p>
+
+
+<h3>Lista faktur</h3>
+
+
+<table class="table">
+    <tr>
+       
+        <th>
+            Numer faktury
+        </th>
+        <th>
+            Nazwa klienta
+        </th>
+        @*<th>
+            Wartość faktury
+        </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.Data)
+        </th>
+        <th>Zobacz szczegóły</th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+      
+        <td>
+            @Html.DisplayFor(modelItem => item.NrFaktury)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Klient.nazwaKlienta)
+        </td>
+        @*<td>
+            @Html.DisplayFor(modelItem => item.wartosc)
+        </td>*@
+        <td>
+            @Html.ValueFor(model => item.Data, "{0:yyyy-MM-dd}")
+        </td>
+        <td>
+          
+            @Html.ActionLink("Zobacz", "DetailsList", "Zamowienia", new { id = item.FakturaID },new { })
+           
+        </td>
+    </tr>
+}
+
+</table>
